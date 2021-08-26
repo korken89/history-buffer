@@ -2,6 +2,14 @@
 name = "history-buffer"
 version = "0.1.0"
 edition = "2018"
+description = "A fixed capacity, write-only, ring buffer"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/korken89/history-buffer"
+documentation = "https://docs.rs/history-buffer"
+categories = ["data-structures"]
+authors = [
+  "Emil Fresk <emil.fresk@gmail.com>",
+]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
