@@ -1,6 +1,6 @@
 [package]
 name = "history-buffer"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2018"
 description = "A fixed capacity, write-only, ring buffer"
 license = "MIT OR Apache-2.0"

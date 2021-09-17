@@ -1,3 +1,4 @@
+use std::time;
 use std::{fmt, iter::DoubleEndedIterator, mem, vec::Vec};
 
 /// A "history buffer", similar to a write-only ring buffer of fixed length.
@@ -8,6 +9,7 @@ pub struct HistoryBuffer<T> {
     max_size: usize,
     write_index: usize,
     buffer: Vec<T>,
+    last_data_at: time::Instant,
 }
 
 impl<T> HistoryBuffer<T> {
@@ -17,6 +19,7 @@ impl<T> HistoryBuffer<T> {
             max_size,
             write_index: 0,
             buffer: Vec::with_capacity(max_size),
+            last_data_at: time::Instant::now(),
         }
     }
 
@@ -65,8 +68,19 @@ impl<T> HistoryBuffer<T> {
         };
 
         self.write_index = (self.write_index.wrapping_add(1)) % self.max_size;
+        self.last_data_at = time::Instant::now();
 
         r
+    }
+
+    /// How long was it since the last measurement.
+    pub fn duration_since_last_measurement(&self) -> Option<time::Duration> {
+        if !self.is_empty() {
+            let now = time::Instant::now();
+            Some(now.duration_since(self.last_data_at))
+        } else {
+            None
+        }
     }
 
     /// Get the entire buffer as unsorted.
