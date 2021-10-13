@@ -33,6 +33,11 @@ impl<T> HistoryBuffer<T> {
         self.buffer.len() == self.max_size
     }
 
+    /// The maximum number of elements the buffer can hold.
+    pub fn max_len(&self) -> usize {
+        self.max_size
+    }
+
     /// The number of elements currently in the buffer.
     pub fn len(&self) -> usize {
         self.buffer.len()
